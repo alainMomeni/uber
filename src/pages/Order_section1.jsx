@@ -5,7 +5,7 @@ function Order_section1() {
 
     return (
         <div>
-            <section class="py-6 relative">
+            <section class="py-6 relative mb-12">
                 <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
                     <h2 class="font-manrope font-bold text-4xl leading-10 text-black ">
                         Résumé de la commande

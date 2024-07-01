@@ -4,7 +4,7 @@ function Footer() {
 
   return (
     <div>
-<footer class="px-3 pt-4 lg:px-9 border-t-2 bg-gray-50 mt-20">
+<footer class="px-3 pt-4 lg:px-9 border-t-2 bg-gray-50">
     <div class="grid gap-10 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
 
         <div class="sm:col-span-2">
