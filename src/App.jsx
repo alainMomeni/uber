@@ -8,6 +8,7 @@ import Dashboard from './pages/dashboard/dashboard.jsx';
 import ListeProduitsDash from './pages/dashboard/Liste_produit_dash.jsx';
 import NouveauProduit from './pages/dashboard/Nouveau_produit_dash.jsx';
 import EditProduit from './pages/dashboard/Edit_produit_dash.jsx';
+import About_us from './pages/About_us.jsx';
 
 
 
@@ -26,6 +27,8 @@ function App() {
         <Route path='/Dashboard/Liste des produits' element= { <ListeProduitsDash/> } />
         <Route path='/Dashboard/Nouveau produit' element= { <NouveauProduit/> } />
         <Route path='/Dashboard/Editer les produits' element= { <EditProduit/> } />
+        <Route path='/Dashboard/Editer les produits' element= { <EditProduit/> } />
+        <Route path='/À propos de nous' element= { <About_us/> } />
       </Routes>
     </BrowserRouter>      
 

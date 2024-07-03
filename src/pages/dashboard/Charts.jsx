@@ -63,7 +63,7 @@ const options = {
   }
 };
 
-function Chart() {
+function Charts() {
   return (
     <div className="grid grid-cols-2 gap-4 mb-4">
       <div className="flex items-center justify-center rounded bg-gray-50 h-96 dark:bg-gray-800 border-2">
@@ -82,7 +82,7 @@ function Chart() {
   );
 }
 
-export default Chart;
+export default Charts;
 
 
 
