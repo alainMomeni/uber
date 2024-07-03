@@ -1,10 +1,11 @@
 import React from 'react'
 import Header from '../Header'
-import Chart from './Charts'
+import ListeProduitsDashTable from './Liste_produit_dash_table'
 
 
 
-function Sidebard() {
+
+function ListeProduitsDash() {
 
     return (
         <div>
@@ -58,7 +59,7 @@ function Sidebard() {
    <div class="p-4 rounded-lg dark:border-gray-700 mt-14">
 
       <div >
-          <Chart />
+          <ListeProduitsDashTable />
       </div>
 
    </div>
@@ -67,4 +68,4 @@ function Sidebard() {
     )
 }
 
-export default Sidebard
+export default ListeProduitsDash

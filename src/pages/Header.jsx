@@ -21,7 +21,7 @@ function Header() {
     };
 
     return (
-        <header className="h-20 sm:h-20 md:h-16 flex items-center z-30 w-full border-b-4">
+        <header className="h-20 sm:h-20 md:h-16 flex items-center z-30 w-full border-b-4 bg-white fixed top-0">
             <div className="container mx-auto px-6 md:px-0 flex items-center justify-between">
                 <div>
                     <img className="h-20 w-24 md:mt-2" src="../src/assets/logo2.png" alt="My Image" />

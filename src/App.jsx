@@ -4,6 +4,8 @@ import Liste_des_produits from './pages/List_product';
 import Product from './pages/Product';
 import Orders from './pages/Order_summary.jsx';
 import Profil from './pages/Profil.jsx';
+import Dashboard from './pages/dashboard/dashboard.jsx';
+import ListeProduitsDash from './pages/dashboard/Liste_produit_dash.jsx';
 
 
 
@@ -18,6 +20,8 @@ function App() {
         <Route path='/Produit' element= { <Product/> } />
         <Route path='/Commande' element= { <Orders/> } />
         <Route path='/Profil' element= { <Profil/> } />
+        <Route path='/Dashboard' element= { <Dashboard/> } />
+        <Route path='/Dashboard/Liste des produits' element= { <ListeProduitsDash/> } />
       </Routes>
     </BrowserRouter>      
 
