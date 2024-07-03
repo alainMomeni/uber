@@ -1,11 +1,9 @@
 import React from 'react'
+import NouveauProduitForm from './Nouveau_produit_dash_form'
 import Header from '../Header'
-import ListeProduitsDashTable from './Liste_produit_dash_table'
 
 
-
-
-function ListeProduitsDash() {
+function NouveauProduit() {
 
     return (
         <div>
@@ -41,7 +39,7 @@ function ListeProduitsDash() {
    <div class="p-4 rounded-lg dark:border-gray-700 mt-14">
 
       <div >
-          <ListeProduitsDashTable />
+          <NouveauProduitForm />
       </div>
 
    </div>
@@ -50,4 +48,4 @@ function ListeProduitsDash() {
     )
 }
 
-export default ListeProduitsDash
+export default NouveauProduit 

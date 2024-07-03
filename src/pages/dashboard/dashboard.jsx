@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebard from './Sidebard'
+import NouveauProduit from './Nouveau_produit_dash'
 
 
 
@@ -8,7 +8,7 @@ function Dashboard() {
     return (
         <div>
             <div > 
-               <Sidebard />
+               <NouveauProduit />
             </div>          
         </div>
     )

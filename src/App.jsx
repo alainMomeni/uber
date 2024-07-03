@@ -6,6 +6,8 @@ import Orders from './pages/Order_summary.jsx';
 import Profil from './pages/Profil.jsx';
 import Dashboard from './pages/dashboard/dashboard.jsx';
 import ListeProduitsDash from './pages/dashboard/Liste_produit_dash.jsx';
+import NouveauProduit from './pages/dashboard/Nouveau_produit_dash.jsx';
+import EditProduit from './pages/dashboard/Edit_produit_dash.jsx';
 
 
 
@@ -22,6 +24,8 @@ function App() {
         <Route path='/Profil' element= { <Profil/> } />
         <Route path='/Dashboard' element= { <Dashboard/> } />
         <Route path='/Dashboard/Liste des produits' element= { <ListeProduitsDash/> } />
+        <Route path='/Dashboard/Nouveau produit' element= { <NouveauProduit/> } />
+        <Route path='/Dashboard/Editer les produits' element= { <EditProduit/> } />
       </Routes>
     </BrowserRouter>      
 

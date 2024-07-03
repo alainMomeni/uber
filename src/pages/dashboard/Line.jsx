@@ -11,9 +11,9 @@ function LineGraph() {
     const data = {};
 
     return (
-        <div>
+        <>
             <Line  options={options} data={data}/>
-        </div>
+        </>
     )
 }
 
