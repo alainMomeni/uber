@@ -5,12 +5,12 @@ function Product_section1() {
 
     return (
         <div>
-            <div class="bg-gray-100 dark:bg-gray-800 py-8">
+            <div class=" dark:bg-gray-800 py-8 mt-16">
                 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col md:flex-row -mx-4">
                         <div class="md:flex-1 px-4">
                             <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-                                <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Product Image" />
+                                <img class="w-full h-full object-cover rounded-lg" src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Product Image" />
                             </div>
                             <div class="flex -mx-2 mb-4">
                                 <div class="w-1/2 px-2 ">

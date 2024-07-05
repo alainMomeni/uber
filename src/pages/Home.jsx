@@ -3,6 +3,7 @@ import Footer from './Footer'
 import Header from './Header'
 import Home_section1 from './Home_section1'
 import Home_section2 from './Home_section2'
+import HeaderUser from './Header_user'
 
 function Home() {
 

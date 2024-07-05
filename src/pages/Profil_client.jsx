@@ -1,25 +1,23 @@
 import React from 'react'
 import Footer from './Footer'
-import HeaderUser from './Header_user'
-import AboutUsSection1 from './About_us_section1'
 import Header from './Header'
+import ProfilSection1 from './Profil_section1'
 
-
-function About_us() {
+function ProfilClient() {
 
     return (
-        <>
+        <div>
             <div>
                 <Header />
             </div>
             <div>
-                <AboutUsSection1 />
+                <ProfilSection1 />
             </div>
             <div>
                 <Footer />
             </div>
-        </>
+        </div>
     )
 }
 
-export default About_us
+export default ProfilClient

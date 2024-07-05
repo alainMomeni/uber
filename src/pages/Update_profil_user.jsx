@@ -1,25 +1,24 @@
 import React from 'react'
 import Footer from './Footer'
-import HeaderUser from './Header_user'
-import AboutUsSection1 from './About_us_section1'
 import Header from './Header'
+import UpdateProfilUserForm from './Update_profil_user_section_1'
 
 
-function About_us() {
+function UpdateProfilUser() {
 
     return (
-        <>
+        <div>
             <div>
                 <Header />
             </div>
             <div>
-                <AboutUsSection1 />
+                <UpdateProfilUserForm />
             </div>
             <div>
                 <Footer />
             </div>
-        </>
+        </div>
     )
 }
 
-export default About_us
+export default UpdateProfilUser

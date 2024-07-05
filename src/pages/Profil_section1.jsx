@@ -5,7 +5,7 @@ function ProfilSection1() {
 
     return (
         <div>
-            <div class="bg-gray-100">
+            <div class="bg-gray-100 mt-16">
                 <div class="container mx-auto py-8">
                     <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
                         <div class="col-span-4 sm:col-span-3">
@@ -17,7 +17,7 @@ function ProfilSection1() {
                                     <h1 class="text-xl font-bold">Le Bliss</h1>
                                     <p class="text-gray-700">Snack Bar</p>
                                     <div class="mt-6 flex flex-wrap gap-4 justify-center">
-                                        <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Manager le profil</a>
+                                        <a href="#" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg">Manager le profil</a>
                                     </div>
                                 </div>
 
