@@ -46,8 +46,13 @@ function Header() {
                                     </div>
                                 </form>
                         </div>
+                        <div className="pr-4 pl-2">
+                            <a href="#" className="uppercase py-2 hover:text-lime-600 font-bold">
+                            Devenir partenaire
+                            </a>
+                        </div>
                         <div className="pr-4">
-                            <a href="#" className="uppercase py-2 px-4 hover:text-lime-600 font-bold">
+                            <a href="#" className="uppercase py-2 px-2 hover:text-lime-600 font-bold">
                                 Se connecter
                             </a>
                         </div>
@@ -179,7 +184,7 @@ function SignupForm({ closeForm, signupType }) {
                             </div>
                         </>
                     )}
-                    <button type="submit" className="w-full bg-lime-500 text-white py-2 rounded-lg hover:bg-lime-400">
+                    <button type="submit" className="w-full bg-lime-500 text-white py-2 rounded-lg hover:bg-lime-400 transition duration-300">
                         S'inscrire
                     </button>
                     <button
