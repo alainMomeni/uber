@@ -1,6 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+const suggestions = [
+    "Poisson braisé",
+    "Poulet rôti",
+    "Maquereau grillé",
+    "Frites de patate douce",
+    "Salade de fruits",
+    "Sushi",
+    "Pizza Margherita",
+    "Spaghetti Bolognese",
+    "Tarte aux pommes"
+];
 
 function Home_section1() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+
+    const handleSearchChange = (e) => {
+        const query = e.target.value;
+        setSearchQuery(query);
+        if (query.length > 1) {
+            const filtered = suggestions.filter(suggestion =>
+                suggestion.toLowerCase().includes(query.toLowerCase())
+            );
+            setFilteredSuggestions(filtered);
+        } else {
+            setFilteredSuggestions([]);
+        }
+    };
+
     return (
         <div>
             <div className="bg-[url('../src/assets/acceuil3.png')] bg-cover bg-center bg-auto flex items-center justify-center w-screen h-3/4 md:mt-16 relative z-20 overflow-hidden">
@@ -13,7 +41,7 @@ function Home_section1() {
                             </span>
                         </h1>
                         <div className="flex mt-8 w-full justify-center">
-                            <form className="max-w-xl w-full flex items-center bg-white border border-gray-300 rounded-full overflow-hidden shadow-lg">
+                            <form className="max-w-xl w-full flex items-center bg-white border border-gray-300 rounded-full overflow-hidden shadow-lg relative">
                                 <div className="relative flex items-center flex-grow">
                                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                         <svg
@@ -37,6 +65,8 @@ function Home_section1() {
                                         id="default-search"
                                         className="w-full py-3 pl-12 pr-4 text-sm text-gray-900 focus:outline-none bg-gray-100 rounded-l-full"
                                         placeholder="Recherche par zone, nom de rue, point de repère..."
+                                        value={searchQuery}
+                                        onChange={handleSearchChange}
                                         required
                                     />
                                 </div>
@@ -48,6 +78,17 @@ function Home_section1() {
                                 </button>
                             </form>
                         </div>
+                        <div>
+                        {filteredSuggestions.length > 0 && (
+                                        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-60 overflow-y-auto">
+                                            {filteredSuggestions.map((suggestion, index) => (
+                                                <li key={index} className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                                                    {suggestion}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,6 +97,9 @@ function Home_section1() {
 }
 
 export default Home_section1;
+
+
+
 
 
 
