@@ -31,8 +31,8 @@ function Home_section1() {
 
     return (
         <div>
-            <div className="bg-[url('../src/assets/acceuil3.png')] bg-cover bg-center bg-auto flex items-center justify-center w-screen h-3/4 md:mt-16 relative z-20 overflow-hidden">
-                <div className="container flex flex-col items-center text-center relative py-16 bg-opacity-50 bg-black">
+            <div className="bg-[url('../src/assets/acceuil3.png')] bg-cover bg-center bg-auto md:max-h-[27rem] flex items-center justify-center w-screen h-3/4 md:mt-16 relative z-20 overflow-hidden">
+                <div className="container flex flex-col items-center text-center max-h-[27rem] relative py-16 bg-opacity-50 bg-black overflow-hidden ">
                     <div className="w-full flex flex-col items-center relative z-20 text-white">
                         <h1 className="font-bebas-neue uppercase text-6xl sm:text-8xl font-black leading-none">
                             Vous avez faim ?
@@ -78,11 +78,11 @@ function Home_section1() {
                                 </button>
                             </form>
                         </div>
-                        <div>
+                        <div className='w-screen flex justify-center md:mr-24 '>
                         {filteredSuggestions.length > 0 && (
-                                        <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-60 overflow-y-auto">
+                                        <ul className="absolute !z-96 bg-white border border-gray-300 mt-1 rounded-lg max-h-60 ">
                                             {filteredSuggestions.map((suggestion, index) => (
-                                                <li key={index} className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                                                <li key={index} className=" md:px-40 text-black hover:bg-gray-200 cursor-pointer">
                                                     {suggestion}
                                                 </li>
                                             ))}
