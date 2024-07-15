@@ -16,7 +16,7 @@ import UpdateProfilUser from './pages/Update_profil_user.jsx';
 
 function App() {
   return (
-    <div className="w-screen h-screen">
+    <div>
 
     <BrowserRouter> 
       <Routes> 

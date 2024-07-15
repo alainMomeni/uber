@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaUser, FaStore } from 'react-icons/fa';
 
 const suggestions = [
     "Poisson braisé",
@@ -72,7 +73,7 @@ function Header() {
                                     <input 
                                         type="search" 
                                         id="default-search" 
-                                        className="pl-10 pr-2 py-2 text-sm text-gray-900 border border-gray-300 focus:outline-none rounded-lg bg-gray-50 focus:ring-lime-500 focus:border-lime-500" 
+                                        className="pl-10 pr-2 py-2 text-sm text-gray-900 border border-gray-300 focus:outline-none rounded-lg bg-gray-50 focus:ring-lime-500 focus:border-lime-500 transition duration-300" 
                                         placeholder="Entrez un plat…" 
                                         value={searchQuery}
                                         onChange={handleSearchChange}
@@ -91,17 +92,17 @@ function Header() {
                             </form>
                         </div>
                         <div className="pr-4 pl-2">
-                            <a href="#" className="font-bebas-neue uppercase py-2 hover:text-lime-600">
+                            <a href="#" className="font-bebas-neue uppercase py-2 hover:text-lime-600 transition duration-300">
                                 Devenir partenaire
                             </a>
                         </div>
                         <div className="pr-4">
-                            <a href="#" className="font-bebas-neue uppercase py-2 px-2 hover:text-lime-600">
+                            <a href="#" className="font-bebas-neue uppercase py-2 px-2 hover:text-lime-600 transition duration-300">
                                 Se connecter
                             </a>
                         </div>
                         <button
-                            className="font-bebas-neue uppercase py-2 px-4 rounded-lg bg-lime-500 border-2 border-transparent text-white text-md mr-4 hover:bg-lime-400"
+                            className="font-bebas-neue uppercase py-2 px-4 rounded-lg bg-lime-500 border-2 border-transparent text-white text-md mr-4 hover:bg-lime-400 transition duration-300"
                             onClick={toggleSignupChoice}
                         >
                             S'inscrire
@@ -151,18 +152,14 @@ function SignupChoiceForm({ chooseSignupType }) {
                         className="bg-lime-500 text-white py-3 px-6 rounded-lg hover:bg-lime-400 transition duration-300 flex items-center justify-center w-40 shadow-md hover:shadow-lg"
                         onClick={() => chooseSignupType('client')}
                     >
-                        <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5H19M7 13L5 21H19l-2-8H7z" />
-                        </svg>
+                        <FaUser className="w-6 h-6 mr-2" />
                         <span>Client</span>
                     </button>
                     <button
                         className="bg-lime-500 text-white py-3 px-6 rounded-lg hover:bg-lime-400 transition duration-300 flex items-center justify-center w-40 shadow-md hover:shadow-lg"
                         onClick={() => chooseSignupType('vendeur')}
                     >
-                        <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 1a9 9 0 100 18 9 9 0 000-18zm.5 13h-1V9h1v5zm-.5-8a.5.5 0 110 1 .5.5 0 010-1z" />
-                        </svg>
+                        <FaStore className="w-6 h-6 mr-2" />
                         <span>Vendeur</span>
                     </button>
                 </div>
@@ -174,7 +171,7 @@ function SignupChoiceForm({ chooseSignupType }) {
 function SignupForm({ closeForm, signupType }) {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg w-11/12 md:w-1/2 lg:w-1/3">
+            <div className="bg-white p-6 rounded-lg w-11/12  md:w-1/2 lg:w-1/3">
                 <h2 className="text-2xl mb-4">Inscription {signupType === 'client' ? 'Client' : 'Vendeur'}</h2>
                 <form>
                     <div className="mb-4">
@@ -215,7 +212,6 @@ function SignupForm({ closeForm, signupType }) {
                     )}
                     {signupType === 'vendeur' && (
                         <>
-                            {/* Ajoutez ici les champs spécifiques pour l'inscription en tant que vendeur */}
                             <div className="mb-4">
                                 <label className="block text-gray-700">Nom de l'entreprise</label>
                                 <input type="text" className="w-full px-3 py-2 border rounded-lg" />
@@ -251,6 +247,7 @@ function SignupForm({ closeForm, signupType }) {
 }
 
 export default Header;
+
 
 
 

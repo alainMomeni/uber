@@ -1,96 +1,47 @@
-import React from 'react'
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import React from 'react';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
-function List_product_section1() {
+const products = [
+    { id: 1, name: 'Fish', img: '../src/assets/fish.png' },
+    { id: 2, name: 'Glass', img: '../src/assets/glass.png' },
+    { id: 3, name: 'Yaourt', img: '../src/assets/yaourt.png' },
+    { id: 4, name: 'Cola', img: '../src/assets/cola.png' },
+    { id: 5, name: 'Beer', img: '../src/assets/beer.png' },
+    { id: 6, name: 'Cake', img: '../src/assets/cake.png' },
+    { id: 7, name: 'Poulet', img: '../src/assets/poulet.png' },
+    { id: 8, name: 'Pasta', img: '../src/assets/pasta.png' },
+];
 
-    const slideLeft = () => {
-        var slider = document.getElementById('slider')
-        slider.scrollLeft = slider.scrollLeft - 500
-    };
+function ListProductSection1() {
 
-    const slideRight = () => {
-        var slider = document.getElementById('slider')
-        slider.scrollLeft = slider.scrollLeft + 500
+    const slide = (direction) => {
+        const slider = document.getElementById('slider');
+        const scrollAmount = 500;
+        slider.scrollLeft = direction === 'left' ? slider.scrollLeft - scrollAmount : slider.scrollLeft + scrollAmount;
     };
 
     return (
         <div>
-            <div className='relative flex items-center pt-20'>
-                <MdChevronLeft className="opacity-50 cursor-pointer hover:opacity-100" onClick={slideLeft} size={40} />
-                <div id="slider" className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-2">
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/fish.png" alt="Fish" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Fish</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/glass.png" alt="Glass" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Glass</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/yaourt.png" alt="Yaourt" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Yaourt</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/cola.png" alt="Cola" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Cola</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/beer.png" alt="Beer" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Beer</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/cake.png" alt="Cake" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Cake</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/poulet.png" alt="Poulet" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Poulet</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/Pasta.png" alt="Pasta" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Pasta</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/fish.png" alt="Fish" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Fish</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/glass.png" alt="Glass" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Glass</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/yaourt.png" alt="Yaourt" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Yaourt</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/cola.png" alt="Cola" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Cola</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/beer.png" alt="Beer" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Beer</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/cake.png" alt="Cake" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Cake</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/poulet.png" alt="Poulet" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Poulet</p>
-                    </div>
-                    <div className="inline-block w-[120px] text-center">
-                        <img src="../src/assets/Pasta.png" alt="Pasta" className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
-                        <p className="mt-2">Pasta</p>
-                    </div>
-                    {/* Ajoutez d'autres images ici */}
+            <div className='relative flex items-center pt-20  border-b shadow-lg'>
+                <MdChevronLeft className="opacity-50 cursor-pointer hover:opacity-100" onClick={() => slide('left')} size={40} />
+                <div id="slider" className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide mt-2 mb-6">
+                    {products.map(product => (
+                        <div key={product.id} className="inline-block w-[120px] text-center">
+                            <img src={product.img} alt={product.name} className="cursor-pointer hover:scale-105 ease-in-out duration-300" />
+                            <p className="mt-2">{product.name}</p>
+                        </div>
+                    ))}
                 </div>
-                <MdChevronRight className="opacity-50 cursor-pointer hover:opacity-100" onClick={slideRight} size={40} />
+                <MdChevronRight className="opacity-50 cursor-pointer hover:opacity-100" onClick={() => slide('right')} size={40} />
             </div>
             <div>
-                <h1 className="text-gray-800 text-3xl font-black p-8 pl-10">Découvrez notre menu du jour !</h1>
+                <h1 className="text-gray-800 text-3xl font-black p-8 pl-10">Découvrez notre menu du jour !</h1>
             </div>
         </div>
-    )
+    );
 }
 
-export default List_product_section1
+export default ListProductSection1;
+
+
+

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <div>
+    <div >
       <footer>
         <div class="bg-[url('../src/assets/footer.png')] bg-cover py-4 text-gray-100">
           <div class="container px-4 mx-auto">

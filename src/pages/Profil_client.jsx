@@ -13,7 +13,7 @@ function ProfilClient() {
             <div>
                 <ProfilSection1 />
             </div>
-            <div>
+            <div >
                 <Footer />
             </div>
         </div>

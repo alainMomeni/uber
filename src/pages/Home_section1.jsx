@@ -31,7 +31,7 @@ function Home_section1() {
 
     return (
         <div>
-            <div className="bg-[url('../src/assets/acceuil3.png')] bg-cover bg-center bg-auto md:max-h-[27rem] flex items-center justify-center w-screen h-3/4 md:mt-16 relative z-20 overflow-hidden">
+            <div className="bg-[url('../src/assets/acceuil3.png')] bg-cover bg-center md:max-h-[27rem] flex items-center justify-center w-screen h-3/4 md:mt-16 z-20 overflow-hidden">
                 <div className="container flex flex-col items-center text-center max-h-[27rem] relative py-16 bg-opacity-50 bg-black overflow-hidden ">
                     <div className="w-full flex flex-col items-center relative z-20 text-white">
                         <h1 className="font-bebas-neue uppercase text-6xl sm:text-8xl font-black leading-none">

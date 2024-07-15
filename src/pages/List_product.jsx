@@ -13,9 +13,6 @@ function Liste_des_produits() {
                 <Header />
             </div>
             <div>
-                <List_product_section1 />             
-            </div>
-            <div>
                 <List_product_section2 /> 
             </div>
             <div>
