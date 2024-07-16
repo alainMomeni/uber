@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaPencilAlt } from 'react-icons/fa';
 
 function ProfilSection1() {
     return (
@@ -17,12 +18,13 @@ function ProfilSection1() {
                                     />
                                     <h1 className="text-2xl font-bold">Le Bliss</h1>
                                     <p className="text-gray-600">Snack Bar</p>
-                                    <div className="mt-6">
+                                    <div className="mt-4">
                                         <a 
                                             href="#" 
-                                            className="bg-lime-500 hover:bg-lime-400 text-white py-2 px-4 rounded-lg transition duration-300"
+                                            className="bg-lime-500 hover:bg-lime-400 text-white py-2 px-4 rounded-lg transition duration-300 flex items-center"
                                         >
-                                            Manager le profil
+                                            <FaPencilAlt className="mr-2" />
+                                            MANAGER
                                         </a>
                                     </div>
                                 </div>
@@ -41,7 +43,6 @@ function ProfilSection1() {
                                     luctus risus rhoncus id.
                                 </p>
 
-                                <h2 className="text-2xl font-bold mt-6 mb-4 text-lime-500">À propos</h2>
                                 <div className="space-y-6">
                                     <div>
                                         <span className="block text-gray-700 font-bold">Lieu</span>
@@ -70,3 +71,4 @@ function ProfilSection1() {
 }
 
 export default ProfilSection1;
+

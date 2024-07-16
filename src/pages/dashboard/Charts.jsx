@@ -65,24 +65,27 @@ const options = {
 
 function Charts() {
   return (
-    <div className="grid grid-cols-2 gap-4 mb-4">
-      <div className="flex items-center justify-center rounded bg-gray-50 h-96 dark:bg-gray-800 border-2">
-        <ChartComponent data={lineData} options={options} type="line" />
-      </div>
-      <div className="flex items-center justify-center rounded bg-gray-50 h-96 dark:bg-gray-800 border-2">
-        <ChartComponent data={barData} options={options} type="bar" />
-      </div>
-      <div className="flex items-center justify-center rounded bg-gray-50 h-96 dark:bg-gray-800 border-2">
-        <ChartComponent data={doughnutData} options={options} type="doughnut" />
-      </div>
-      <div className="flex items-center justify-center rounded bg-gray-50 h-96 dark:bg-gray-800 border-2">
-        <ChartComponent data={radarData} options={options} type="radar" />
+    <div className="p-6 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex items-center justify-center rounded-lg bg-white dark:bg-gray-800 shadow-md p-4">
+          <ChartComponent data={lineData} options={options} type="line" />
+        </div>
+        <div className="flex items-center justify-center rounded-lg bg-white dark:bg-gray-800 shadow-md p-4">
+          <ChartComponent data={barData} options={options} type="bar" />
+        </div>
+        <div className="flex items-center justify-center rounded-lg bg-white dark:bg-gray-800 shadow-md p-4">
+          <ChartComponent data={doughnutData} options={options} type="doughnut" />
+        </div>
+        <div className="flex items-center justify-center rounded-lg bg-white dark:bg-gray-800 shadow-md p-4">
+          <ChartComponent data={radarData} options={options} type="radar" />
+        </div>
       </div>
     </div>
   );
 }
 
 export default Charts;
+
 
 
 
