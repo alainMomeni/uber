@@ -11,12 +11,14 @@ import EditProduit from './pages/dashboard/Edit_produit_dash.jsx';
 import About_us from './pages/About_us.jsx';
 import ProfilClient from './pages/Profil_client.jsx';
 import UpdateProfilUser from './pages/Update_profil_user.jsx';
+import ModifierUserDash from './pages/dashboard/update_profil_dash.jsx';
+
 
 
 
 function App() {
   return (
-    <div>
+    <div className=''>
 
     <BrowserRouter> 
       <Routes> 
@@ -33,6 +35,7 @@ function App() {
         <Route path='/À propos de nous' element= { <About_us/> } />
         <Route path='/Profil du client' element= { <ProfilClient/> } />
         <Route path='/Modifier profil' element= { <UpdateProfilUser/> } />
+        <Route path='/Dashboard/Modifier profil' element= { <ModifierUserDash/> } />
       </Routes>
     </BrowserRouter>      
 

@@ -4,12 +4,12 @@ import { FaPencilAlt } from 'react-icons/fa';
 function ProfilSection1() {
     return (
         <div>
-            <div className="bg-gray-100 mt-16">
+            <div className=" mt-16">
                 <div className="container mx-auto py-8">
                     <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
                         {/* Profil Sidebar */}
                         <div className="col-span-4 sm:col-span-3">
-                            <div className="bg-white shadow-lg rounded-lg p-6">
+                            <div className="bg-white shadow-lg rounded-lg p-6 ">
                                 <div className="flex flex-col items-center">
                                     <img 
                                         src="../src/assets/bliss.jpg" 

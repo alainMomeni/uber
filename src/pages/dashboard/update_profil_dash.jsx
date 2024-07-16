@@ -1,18 +1,16 @@
-import React from 'react'
-import EditProduitForm from './Edit_produit_dash_form'
-import Header from '../Header'
+import React from 'react';
+import Header from '../Header';
 import { FaUser } from 'react-icons/fa';
+import ModifierUserDashForm from './update_profil_dash_form';
 
+function ModifierUserDash() {
+  return (
+    <div>
+      <nav className="fixed top-0 z-50 w-full bg-gray-900 text-white">
+        <Header />
+      </nav>
 
-function EditProduit() {
-
-    return (
-        <div>
-<nav class="fixed top-0 z-50 w-full">
-  <Header />
-</nav>
-
-<aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gray-100 border-r border-gray-300 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+      <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-gray-100 border-r border-gray-300 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
         <div className="h-full px-3 pb-4 overflow-y-auto bg-gray-100 dark:bg-gray-800">
           <ul className="space-y-2 font-medium">
           <li>
@@ -42,17 +40,15 @@ function EditProduit() {
         </div>
       </aside>
 
-<div class="p-4 sm:ml-64">
-   <div class="p-4 rounded-lg dark:border-gray-700 mt-14">
-
-      <div >
-          <EditProduitForm />
-      </div>
-
-   </div>
-</div>
+      <div className="p-4 sm:ml-64">
+        <div className="p-4 dark:bg-gray-700 mt-14">
+          <div>
+            <ModifierUserDashForm />
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default EditProduit
+export default ModifierUserDash;

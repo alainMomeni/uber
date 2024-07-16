@@ -6,14 +6,14 @@ import ProfilSection1 from './Profil_section1'
 function ProfilClient() {
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <div>
                 <Header />
             </div>
             <div>
                 <ProfilSection1 />
             </div>
-            <div >
+            <div className='sticky top-[100vh]'>
                 <Footer />
             </div>
         </div>

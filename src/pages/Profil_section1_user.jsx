@@ -3,7 +3,7 @@ import React from 'react';
 function ProfilSection1User() {
     return (
         <div>
-            <div className="bg-white overflow-hidden shadow rounded-lg border mt-16">
+            <div className="bg-white overflow-hidden shadow rounded-lg border mt-20">
                 <div className="px-4 py-5 sm:px-6 flex items-center">
                     <img 
                         src="URL_DE_LA_PHOTO_DE_PROFIL" 

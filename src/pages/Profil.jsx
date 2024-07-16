@@ -6,14 +6,14 @@ import ProfilSection1User from './Profil_section1_user'
 function Profil() {
 
     return (
-        <div>
-            <div>
+        <div className='min-h-screen'>
+            <div className=''>
                 <Header />
             </div>
-            <div>
+            <div className=''>
                 <ProfilSection1User />
             </div>
-            <div>
+            <div className='sticky top-[100vh]'>
                 <Footer />
             </div>
         </div>

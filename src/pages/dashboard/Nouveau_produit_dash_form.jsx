@@ -3,16 +3,25 @@ import { FaPlus } from 'react-icons/fa';
 
 function NouveauProduitForm() {
   const [formData, setFormData] = useState({
+    photo: '',
     name: '',
-    category: '',
     price: '',
+    availability: '',
     description: ''
   });
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      photo: e.target.files[0]
     });
   };
 
@@ -23,30 +32,29 @@ function NouveauProduitForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-w-screen ">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md max-w-lg w-full dark:bg-gray-800">
+    <div className="">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md max-w-6xl w-full dark:bg-gray-800">
         <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Ajouter un nouveau produit</h2>
         
         <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 dark:text-gray-300">Nom du produit</label>
+          <label htmlFor="photo" className="block text-gray-700 dark:text-gray-300">Photo</label>
           <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
+            type="file"
+            id="photo"
+            name="photo"
+            onChange={handleFileChange}
             className="w-full p-2 border border-gray-300 rounded mt-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-lime-500 focus:border-lime-500 transition duration-300"
             required
           />
         </div>
         
         <div className="mb-4">
-          <label htmlFor="category" className="block text-gray-700 dark:text-gray-300">Catégorie</label>
+          <label htmlFor="name" className="block text-gray-700 dark:text-gray-300">Nom</label>
           <input
             type="text"
-            id="category"
-            name="category"
-            value={formData.category}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded mt-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-lime-500 focus:border-lime-500 transition duration-300"
             required
@@ -60,6 +68,19 @@ function NouveauProduitForm() {
             id="price"
             name="price"
             value={formData.price}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded mt-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-lime-500 focus:border-lime-500 transition duration-300"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="availability" className="block text-gray-700 dark:text-gray-300">Disponibilité</label>
+          <input
+            type="text"
+            id="availability"
+            name="availability"
+            value={formData.availability}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded mt-1 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-lime-500 focus:border-lime-500 transition duration-300"
             required
@@ -88,6 +109,7 @@ function NouveauProduitForm() {
 }
 
 export default NouveauProduitForm;
+
 
 
 
