@@ -1,8 +1,8 @@
 import React from 'react'
 import Footer from './Footer'
-import Header from './Header'
 import Product_section1 from './Product_section1'
 import Product_section2 from './Product_section2'
+import Header from './header/Header'
 
 function Product() {
 

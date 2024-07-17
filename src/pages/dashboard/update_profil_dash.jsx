@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../Header';
 import { FaUser } from 'react-icons/fa';
 import ModifierUserDashForm from './update_profil_dash_form';
+import Header from '../header/Header';
 
 function ModifierUserDash() {
   return (

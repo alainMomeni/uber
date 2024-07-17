@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from './Footer'
-import Header from './Header'
 import ProfilSection1User from './Profil_section1_user'
+import Header from './header/Header'
 
 function Profil() {
 

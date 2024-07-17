@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../Header'
 import ListeProduitsDashTable from './Liste_produit_dash_table'
 import { FaUser } from 'react-icons/fa';
+import Header from '../header/Header';
 
 
 

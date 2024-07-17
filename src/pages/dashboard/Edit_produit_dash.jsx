@@ -1,7 +1,7 @@
 import React from 'react'
 import EditProduitForm from './Edit_produit_dash_form'
-import Header from '../Header'
 import { FaUser } from 'react-icons/fa';
+import Header from '../header/Header';
 
 
 function EditProduit() {

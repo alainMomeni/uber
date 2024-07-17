@@ -82,7 +82,7 @@ function Home_section1() {
                         {filteredSuggestions.length > 0 && (
                                         <ul className=" fixed bg-white border border-gray-300 mt-1 rounded-lg max-h-60 ">
                                             {filteredSuggestions.map((suggestion, index) => (
-                                                <li key={index} className=" md:px-40 text-black hover:bg-gray-200 cursor-pointer">
+                                                <li key={index} className=" md:px-40 text-black hover:bg-lime-500 hover:text-white cursor-pointer">
                                                     {suggestion}
                                                 </li>
                                             ))}

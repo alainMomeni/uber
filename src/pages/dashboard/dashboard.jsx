@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../Header';
 import Charts from './Charts';
 import { FaUser } from 'react-icons/fa';
+import Header from '../header/Header';
 
 function Dashboard() {
   return (

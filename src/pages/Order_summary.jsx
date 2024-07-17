@@ -1,7 +1,7 @@
-import Header from './Header'
 import Footer from './Footer'
 import React from 'react';
 import Order_section1 from './Order_section1';
+import Header from './header/Header';
 
 
 function Orders() {

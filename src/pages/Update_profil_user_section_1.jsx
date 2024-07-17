@@ -3,7 +3,7 @@ import { FaEdit } from 'react-icons/fa';
 
 function UpdateProfilUserForm() {
     return (
-        <div className='md:mt-16 flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900'>
+        <div className='md:mt-16 mt-20 flex items-center justify-center bg-gray-100 dark:bg-gray-900'>
             <form className="bg-white mt-4 mb-8 p-6 rounded-lg shadow-md dark:bg-gray-800 w-full max-w-6xl">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Modifier vos informations</h2>
                 

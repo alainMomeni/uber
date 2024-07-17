@@ -9,7 +9,7 @@ function ProfilSection1() {
                     <div className="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
                         {/* Profil Sidebar */}
                         <div className="col-span-4 sm:col-span-3">
-                            <div className="bg-white shadow-lg rounded-lg p-6 ">
+                            <div className="bg-white shadow-xl rounded-lg p-6 ">
                                 <div className="flex flex-col items-center">
                                     <img 
                                         src="../src/assets/bliss.jpg" 
@@ -33,7 +33,7 @@ function ProfilSection1() {
 
                         {/* Profil Details */}
                         <div className="col-span-4 sm:col-span-9">
-                            <div className="bg-white shadow-lg rounded-lg p-6">
+                            <div className="bg-white shadow-xl rounded-lg p-6">
                                 <h2 className="text-2xl font-bold mb-4 text-lime-500">Description</h2>
                                 <p className="text-gray-700 leading-relaxed">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est

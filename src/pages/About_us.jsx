@@ -1,8 +1,7 @@
 import React from 'react'
 import Footer from './Footer'
-import HeaderUser from './Header_user'
 import AboutUsSection1 from './About_us_section1'
-import Header from './Header'
+import Header from './header/Header'
 
 
 function About_us() {
