@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FaTimes, FaSignInAlt } from 'react-icons/fa';
 import SignupChoiceForm from './SignupChoiceForm';
-import SignupForm from './SignupForm';
 import Sidebar from './Sidebar';
 import SearchBar from './SearchBar';
+import SignupForm from './SignupForm/SignupForm';
 
 function Header() {
     const [isSignupChoiceOpen, setIsSignupChoiceOpen] = useState(false);
