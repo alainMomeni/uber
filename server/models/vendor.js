@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const vendorSchema = new mongoose.Schema({
-    profilePhoto: String,
+const VendorSchema = new mongoose.Schema({
     restaurantPhoto: String,
     restaurantName: String,
     category: String,
@@ -10,11 +9,10 @@ const vendorSchema = new mongoose.Schema({
     openingTime: String,
     closingTime: String,
     phoneNumber: String,
-    email: String,
-    description: String,
+    email: { type: String, unique: true },
     password: String,
+    description: String,
 });
 
-const Vendor = mongoose.model('Vendor', vendorSchema);
+module.exports = mongoose.model('Vendor', VendorSchema);
 
-module.exports = Vendor;

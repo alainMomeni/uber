@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import ClientForm from './ClientForm';
 import VendorForm from './VendorForm';
+import { FaTimes } from 'react-icons/fa';
 
 const SignupForm = ({ closeForm, signupType }) => {
     const [formData, setFormData] = useState({
@@ -40,7 +40,7 @@ const SignupForm = ({ closeForm, signupType }) => {
         data.append('signupType', signupType);
 
         try {
-            await axios.post('http://localhost:3000/signup', data, {
+            await axios.post('http://localhost:3000/api/auth/signup', data, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             closeForm();
@@ -56,6 +56,7 @@ const SignupForm = ({ closeForm, signupType }) => {
                     <h2 className="text-2xl">
                         Inscription {signupType === 'client' ? 'Consommateur' : 'Restaurateur'}
                     </h2>
+                    <FaTimes className="cursor-pointer" onClick={closeForm} />
                 </div>
                 <form onSubmit={handleSubmit}>
                     {signupType === 'client' ? (
@@ -81,4 +82,6 @@ const SignupForm = ({ closeForm, signupType }) => {
 };
 
 export default SignupForm;
+
+
 
