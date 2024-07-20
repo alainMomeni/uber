@@ -30,7 +30,8 @@ const SignupForm = ({ closeForm, signupType }) => {
             [name]: files ? files[0] : value,
         }));
     };
-
+    
+    // Ensure formData has correct password fields
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
@@ -38,16 +39,22 @@ const SignupForm = ({ closeForm, signupType }) => {
             data.append(key, formData[key]);
         }
         data.append('signupType', signupType);
-
+    
+        console.log('FormData content:');
+        for (let [key, value] of data.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+    
         try {
             await axios.post('http://localhost:3000/api/auth/signup', data, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             closeForm();
         } catch (error) {
-            console.error(error);
+            console.error('Error during form submission:', error.response ? error.response.data : error.message);
         }
     };
+    
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

@@ -1,21 +1,28 @@
+// app.js (ou server.js, en fonction de votre configuration)
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
-const { mongoURI, PORT } = require('./config');
-
 const app = express();
+const authRoutes = require('./routes/authRoutes');
+const bodyParser = require('body-parser');
 
-app.use(cors());
-app.use(express.json());
+// Autres configurations
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch((err) => console.log(err));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/auth', authRoutes);
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Middleware de gestion des erreurs
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+
 
 
 
