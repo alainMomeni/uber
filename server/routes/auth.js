@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 const User = require('../models/User');
 
 const router = express.Router();
@@ -30,4 +31,18 @@ router.post('/signup', async (req, res) => {
   }
 });
 
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  res.json({ message: 'Connexion réussie' });
+});
+
+router.get('/logout', (req, res) => {
+  req.logout(err => {
+    if (err) {
+      return next(err);
+    }
+    res.json({ message: 'Déconnexion réussie' });
+  });
+});
+
 module.exports = router;
+

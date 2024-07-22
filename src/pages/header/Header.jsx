@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import SearchBar from './SearchBar';
 import SignupForm from './SignupForm/SignupForm';
 import LoginForm from './LoginForm';
+import HeaderUser from '../Header_user';
 
 function Header() {
     const [isSignupChoiceOpen, setIsSignupChoiceOpen] = useState(false);
@@ -12,6 +13,7 @@ function Header() {
     const [signupType, setSignupType] = useState(null);
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const toggleSignupChoice = () => {
         setIsSignupChoiceOpen(!isSignupChoiceOpen);
@@ -39,6 +41,14 @@ function Header() {
     const closeLoginForm = () => {
         setIsLoginFormOpen(false);
     };
+
+    const handleLoginSuccess = () => {
+        setIsLoggedIn(true);
+    };
+
+    if (isLoggedIn) {
+        return <HeaderUser />;
+    }
 
     return (
         <>
@@ -77,18 +87,18 @@ function Header() {
                         </button>
                     </div>
                 </div>
-
-                {isSignupChoiceOpen && <SignupChoiceForm chooseSignupType={chooseSignupType} />}
-                {isSignupFormOpen && <SignupForm closeForm={closeSignupForm} signupType={signupType} />}
-                {isLoginFormOpen && <LoginForm closeForm={closeLoginForm} />}
             </header>
 
-            <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+            {isSidebarOpen && <Sidebar />}
+            {isSignupChoiceOpen && <SignupChoiceForm chooseSignupType={chooseSignupType} closeForm={toggleSignupChoice} />}
+            {isSignupFormOpen && <SignupForm signupType={signupType} closeForm={closeSignupForm} />}
+            {isLoginFormOpen && <LoginForm closeForm={closeLoginForm} onLoginSuccess={handleLoginSuccess} />}
         </>
     );
 }
 
 export default Header;
+
 
 
 
