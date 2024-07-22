@@ -1,13 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const fileUpload = require('../middleware/fileUpload');
 
 const router = express.Router();
 
-router.post('/signup', fileUpload, async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
-    let userData = req.is('json') ? req.body : { ...req.body, ...req.files };
+    let userData = req.body;
 
     if (userData.password !== userData.confirmPassword) {
       return res.status(400).json({ message: 'Les mots de passe ne correspondent pas' });

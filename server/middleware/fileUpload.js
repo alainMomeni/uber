@@ -10,7 +10,6 @@ if (!fs.existsSync(uploadsDir)) {
 
 const fileUpload = (req, res, next) => {
   if (req.is('json')) {
-    // If the request is JSON, just pass it through
     return next();
   }
 
@@ -19,15 +18,18 @@ const fileUpload = (req, res, next) => {
   req.files = {};
 
   bb.on('file', (name, file, info) => {
-    const fileExtension = path.extname(info.filename);
-    const baseFileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const filename = `${baseFileName}${fileExtension}`;
-    const filePath = path.join(uploadsDir, filename);
-    const writeStream = fs.createWriteStream(filePath);
+    req.body[name] = ''; // Initialize the field to store the file path
+    const tmpFilePath = path.join(uploadsDir, `tmp_${Date.now()}`);
+    const writeStream = fs.createWriteStream(tmpFilePath);
     file.pipe(writeStream);
 
     writeStream.on('finish', () => {
-      req.files[name] = '/assets/' + filename;
+      req.files[name] = {
+        filename: info.filename,
+        encoding: info.encoding,
+        mimetype: info.mimeType,
+        filepath: tmpFilePath
+      };
     });
   });
 
@@ -36,6 +38,18 @@ const fileUpload = (req, res, next) => {
   });
 
   bb.on('finish', () => {
+    // Process files after all fields are parsed
+    Object.keys(req.files).forEach((fieldname) => {
+      const file = req.files[fieldname];
+      const fileExtension = path.extname(file.filename);
+      const email = req.body.email || 'unknown';
+      const sanitizedEmail = email.replace(/[^a-zA-Z0-9]/g, '_');
+      const filename = `${sanitizedEmail}${fileExtension}`;
+      const filePath = path.join(uploadsDir, filename);
+      
+      fs.renameSync(file.filepath, filePath);
+      req.body[fieldname] = '/assets/' + filename;
+    });
     next();
   });
 
