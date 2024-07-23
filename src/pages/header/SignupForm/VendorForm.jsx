@@ -1,7 +1,6 @@
 import React from 'react';
 
 const VendorForm = ({ fieldErrors }) => {
-    console.log('Field Errors:', fieldErrors);  // Log field errors
     return (
         <>
             <div className="mb-4">
@@ -56,6 +55,7 @@ const VendorForm = ({ fieldErrors }) => {
 };
 
 export default VendorForm;
+
 
 
 

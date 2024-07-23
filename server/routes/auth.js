@@ -1,11 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const passport = require('passport');
 const User = require('../models/User');
+const passport = require('passport');
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res, next) => {
   try {
     let userData = req.body;
 
@@ -24,7 +24,11 @@ router.post('/signup', async (req, res) => {
 
     const newUser = new User(userData);
     await newUser.save();
-    res.status(201).json({ message: 'Utilisateur créé avec succès' });
+
+    req.login(newUser, (err) => {
+      if (err) return next(err);
+      return res.status(201).json({ message: 'Utilisateur créé et connecté avec succès' });
+    });
   } catch (error) {
     console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
     res.status(500).json({ message: 'Erreur lors de la création de l\'utilisateur: ' + error.message });
@@ -35,14 +39,6 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   res.json({ message: 'Connexion réussie' });
 });
 
-router.get('/logout', (req, res) => {
-  req.logout(err => {
-    if (err) {
-      return next(err);
-    }
-    res.json({ message: 'Déconnexion réussie' });
-  });
-});
-
 module.exports = router;
+
 

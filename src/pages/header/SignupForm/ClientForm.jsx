@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ClientForm = ({ fieldErrors }) => {
-    console.log('Field Errors:', fieldErrors);  // Log field errors
     return (
         <>
             <div className="mb-4">

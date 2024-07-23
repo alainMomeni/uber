@@ -2,8 +2,9 @@ import React, { useState, useRef } from 'react';
 import ClientForm from './ClientForm';
 import VendorForm from './VendorForm';
 import { FaTimes } from 'react-icons/fa';
+import axios from 'axios';
 
-const SignupForm = ({ closeForm, signupType }) => {
+const SignupForm = ({ closeForm, signupType, onSignupSuccess }) => {
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
   const formRef = useRef(null);
@@ -20,16 +21,29 @@ const SignupForm = ({ closeForm, signupType }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
-        method: 'POST',
-        body: formData,
+      const response = await axios.post('http://localhost:5000/api/signup', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      if (response.ok) {
+      if (response.status === 201) {
         console.log('User created successfully');
-        closeForm();
+
+        // Attempt to log in the user immediately after signup
+        const loginResponse = await axios.post('http://localhost:5000/api/login', {
+          email: formData.get('email'),
+          password: formData.get('password'),
+        });
+
+        if (loginResponse.status === 200) {
+          onSignupSuccess();
+          closeForm();
+        } else {
+          setError('Inscription réussie, mais la connexion a échoué.');
+        }
       } else {
-        const errorData = await response.json();
+        const errorData = response.data;
         console.log('Error data:', errorData);
         if (errorData.message === 'Les mots de passe ne correspondent pas') {
           setFieldErrors({ confirmPassword: errorData.message });
@@ -79,6 +93,7 @@ const SignupForm = ({ closeForm, signupType }) => {
 };
 
 export default SignupForm;
+
 
 
 

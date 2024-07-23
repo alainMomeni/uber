@@ -46,6 +46,10 @@ function Header() {
         setIsLoggedIn(true);
     };
 
+    const handleSignupSuccess = () => {
+        setIsLoggedIn(true);
+    };
+
     if (isLoggedIn) {
         return <HeaderUser />;
     }
@@ -91,13 +95,14 @@ function Header() {
 
             {isSidebarOpen && <Sidebar />}
             {isSignupChoiceOpen && <SignupChoiceForm chooseSignupType={chooseSignupType} closeForm={toggleSignupChoice} />}
-            {isSignupFormOpen && <SignupForm signupType={signupType} closeForm={closeSignupForm} />}
+            {isSignupFormOpen && <SignupForm signupType={signupType} closeForm={closeSignupForm} onSignupSuccess={handleSignupSuccess} />}
             {isLoginFormOpen && <LoginForm closeForm={closeLoginForm} onLoginSuccess={handleLoginSuccess} />}
         </>
     );
 }
 
 export default Header;
+
 
 
 
