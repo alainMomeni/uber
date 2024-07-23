@@ -22,12 +22,20 @@ router.post('/signup', async (req, res, next) => {
     userData.password = await bcrypt.hash(userData.password, saltRounds);
     delete userData.confirmPassword;
 
+    // Handle file uploads
+    if (req.files && req.files.profilePhoto) {
+      userData.profilePhoto = req.files.profilePhoto.filepath;
+    }
+    if (req.files && req.files.restaurantPhoto) {
+      userData.restaurantPhoto = req.files.restaurantPhoto.filepath;
+    }
+
     const newUser = new User(userData);
     await newUser.save();
 
     req.login(newUser, (err) => {
       if (err) return next(err);
-      return res.status(201).json({ message: 'Utilisateur créé et connecté avec succès' });
+      return res.status(201).json({ message: 'Utilisateur créé et connecté avec succès', user: newUser });
     });
   } catch (error) {
     console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
@@ -36,9 +44,25 @@ router.post('/signup', async (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.json({ message: 'Connexion réussie' });
+  res.json({ message: 'Connexion réussie', user: req.user });
+});
+
+router.post('/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Erreur lors de la déconnexion' });
+    }
+    res.json({ message: 'Déconnexion réussie' });
+  });
+});
+
+router.get('/user', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ message: 'Not authenticated' });
+  }
 });
 
 module.exports = router;
-
 

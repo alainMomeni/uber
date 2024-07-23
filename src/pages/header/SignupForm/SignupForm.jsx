@@ -13,10 +13,14 @@ const SignupForm = ({ closeForm, signupType, onSignupSuccess }) => {
     e.preventDefault();
     const formData = new FormData(formRef.current);
 
+    // Reset errors
+    setError('');
+    setFieldErrors({});
+
     // Check if email is filled
     const email = formData.get('email');
     if (!email) {
-      setFieldErrors({ email: 'L\'adresse e-mail est requise' });
+      setFieldErrors(prev => ({ ...prev, email: 'L\'adresse e-mail est requise' }));
       return;
     }
 
@@ -46,16 +50,27 @@ const SignupForm = ({ closeForm, signupType, onSignupSuccess }) => {
         const errorData = response.data;
         console.log('Error data:', errorData);
         if (errorData.message === 'Les mots de passe ne correspondent pas') {
-          setFieldErrors({ confirmPassword: errorData.message });
+          setFieldErrors(prev => ({ ...prev, confirmPassword: errorData.message }));
         } else if (errorData.message === 'Email déjà utilisé') {
-          setFieldErrors({ email: errorData.message });
+          setFieldErrors(prev => ({ ...prev, email: errorData.message }));
         } else {
           setError(errorData.message || 'Inscription échouée');
         }
       }
     } catch (error) {
       console.error('Erreur:', error);
-      setError('Une erreur inattendue s\'est produite. Veuillez réessayer.');
+      if (error.response && error.response.data) {
+        const errorData = error.response.data;
+        if (errorData.message === 'Les mots de passe ne correspondent pas') {
+          setFieldErrors(prev => ({ ...prev, confirmPassword: errorData.message }));
+        } else if (errorData.message === 'Email déjà utilisé') {
+          setFieldErrors(prev => ({ ...prev, email: errorData.message }));
+        } else {
+          setError(errorData.message || 'Une erreur inattendue s\'est produite. Veuillez réessayer.');
+        }
+      } else {
+        setError('Une erreur inattendue s\'est produite. Veuillez réessayer.');
+      }
     }
   };
 

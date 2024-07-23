@@ -6,7 +6,7 @@ const authRoutes = require('./routes/auth');
 const fileUpload = require('./middleware/fileUpload');
 const session = require('express-session');
 const passport = require('passport');
-require('./config/passportConfig'); // Ajoutez ceci pour configurer Passport
+require('./config/passportConfig');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -18,7 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload);
 
-// Sessions pour Passport.js
+// Serve static files from the assets directory
+app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
+
+// Sessions for Passport.js
 app.use(session({
   secret: 'your_secret_key',
   resave: false,

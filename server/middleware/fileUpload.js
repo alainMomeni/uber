@@ -18,17 +18,15 @@ const fileUpload = (req, res, next) => {
   req.files = {};
 
   bb.on('file', (name, file, info) => {
-    req.body[name] = ''; // Initialize the field to store the file path
-    const tmpFilePath = path.join(uploadsDir, `tmp_${Date.now()}`);
-    const writeStream = fs.createWriteStream(tmpFilePath);
+    const filename = Date.now() + '_' + info.filename;
+    const filePath = path.join(uploadsDir, filename);
+    const writeStream = fs.createWriteStream(filePath);
     file.pipe(writeStream);
 
     writeStream.on('finish', () => {
       req.files[name] = {
-        filename: info.filename,
-        encoding: info.encoding,
-        mimetype: info.mimeType,
-        filepath: tmpFilePath
+        filename: filename,
+        filepath: '/assets/' + filename
       };
     });
   });
@@ -38,24 +36,7 @@ const fileUpload = (req, res, next) => {
   });
 
   bb.on('finish', () => {
-    // Process files after all fields are parsed
-    Object.keys(req.files).forEach((fieldname) => {
-      const file = req.files[fieldname];
-      const fileExtension = path.extname(file.filename);
-      const email = req.body.email || 'unknown';
-      const sanitizedEmail = email.replace(/[^a-zA-Z0-9]/g, '_');
-      const filename = `${sanitizedEmail}${fileExtension}`;
-      const filePath = path.join(uploadsDir, filename);
-      
-      fs.renameSync(file.filepath, filePath);
-      req.body[fieldname] = '/assets/' + filename;
-    });
     next();
-  });
-
-  bb.on('error', (error) => {
-    console.error('Busboy error:', error);
-    res.status(400).json({ message: 'Error processing form data' });
   });
 
   req.pipe(bb);

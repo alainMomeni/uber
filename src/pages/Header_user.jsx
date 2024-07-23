@@ -1,11 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
+import axios from 'axios';
 
 function HeaderUser() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        // Fetch user data when component mounts
+        fetchUserData();
+    }, []);
+
+    const fetchUserData = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/user');
+            setUser(response.data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
 
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:5000/api/logout');
+            // Redirect to login page or update app state
+            window.location.href = '/login';
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
     };
 
     return (
@@ -18,7 +44,7 @@ function HeaderUser() {
                     <div className="flex items-center">
                         <nav className="font-sen text-gray-800 dark:text-white uppercase text-sm lg:flex items-center hidden">
                             <div className="pr-4">
-                            <form className="max-w-md mx-auto">
+                                <form className="max-w-md mx-auto">
                                     <div className="relative">
                                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                             <svg className="w-4 h-4 text-lime-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -29,7 +55,7 @@ function HeaderUser() {
                                     </div>
                                 </form>
                             </div>
-                            <div className="pr-4 py-2 px-4 mt-2">
+                            <div className="pr-8 py-2 px-4 mt-2">
                                 <div className="relative">
                                     <FaShoppingCart className="text-2xl" />
                                     <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full px-2 py-1">
@@ -37,8 +63,16 @@ function HeaderUser() {
                                     </span>
                                 </div>
                             </div>
+                            <div className="">
+                                <button
+                                    className="font-bebas-neue uppercase py-2 px-2 hover:text-lime-600 transition duration-300"
+                                    onClick={handleLogout}
+                                >
+                                    Se déconnecter
+                                </button>
+                            </div>
                             <div className="py-2 px-4 text-md mr-4">
-                                <img src="../src/assets/bliss.jpg" alt="Profile" className="w-10 h-10 rounded-full border" />
+                                <img src={user && user.profilePhoto ? user.profilePhoto : "../src/assets/bliss.jpg"} alt="Profile" className="w-10 h-10 rounded-full border" />
                             </div>
                         </nav>
                         <button className="lg:hidden flex flex-col ml-4" onClick={toggleSidebar}>
