@@ -3,7 +3,6 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
-const fileUpload = require('./middleware/fileUpload');
 const session = require('express-session');
 const passport = require('passport');
 require('./config/passportConfig');
@@ -16,7 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload);
 
 // Serve static files from the assets directory
 app.use('/assets', express.static(path.join(__dirname, '../src/assets')));
@@ -39,6 +37,8 @@ app.use('/api', authRoutes);
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+
 
 
 

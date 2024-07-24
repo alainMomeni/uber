@@ -15,6 +15,7 @@ function HeaderUser() {
         try {
             const response = await axios.get('http://localhost:5000/api/user');
             setUser(response.data);
+            console(user);
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -28,7 +29,7 @@ function HeaderUser() {
         try {
             await axios.post('http://localhost:5000/api/logout');
             // Redirect to login page or update app state
-            window.location.href = '/login';
+            window.location.href = '/';
         } catch (error) {
             console.error('Error logging out:', error);
         }

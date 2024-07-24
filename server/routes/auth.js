@@ -2,10 +2,11 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const passport = require('passport');
+const fileUpload = require('../middleware/fileUpload');
 
 const router = express.Router();
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', fileUpload, async (req, res, next) => {
   try {
     let userData = req.body;
 
@@ -23,11 +24,11 @@ router.post('/signup', async (req, res, next) => {
     delete userData.confirmPassword;
 
     // Handle file uploads
-    if (req.files && req.files.profilePhoto) {
-      userData.profilePhoto = req.files.profilePhoto.filepath;
-    }
-    if (req.files && req.files.restaurantPhoto) {
-      userData.restaurantPhoto = req.files.restaurantPhoto.filepath;
+    if (req.files) {
+      const profilePhoto = req.files.find(file => file.fieldname === 'profilePhoto');
+      if (profilePhoto) {
+        userData.profilePhoto = profilePhoto.path;
+      }
     }
 
     const newUser = new User(userData);
@@ -65,4 +66,6 @@ router.get('/user', (req, res) => {
 });
 
 module.exports = router;
+
+
 
