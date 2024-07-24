@@ -20,7 +20,7 @@ function App() {
   return (
     <div className=''>
 
-    <BrowserRouter> 
+    <BrowserRouter>     
       <Routes> 
         <Route path='/' element= { <Home /> } />
         <Route path='/Liste des produits' element= { <Liste_des_produits/> } />

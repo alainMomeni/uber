@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import SignupChoiceForm from './SignupChoiceForm';
 import Sidebar from './Sidebar';
@@ -6,6 +6,7 @@ import SearchBar from './SearchBar';
 import SignupForm from './SignupForm/SignupForm';
 import LoginForm from './LoginForm';
 import HeaderUser from '../Header_user';
+import axios from 'axios'; // Import axios
 
 function Header() {
     const [isSignupChoiceOpen, setIsSignupChoiceOpen] = useState(false);
@@ -14,6 +15,23 @@ function Header() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true); // Pour gérer l'état de chargement
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/user', { withCredentials: true });
+                if (response.status === 200) {
+                    setIsLoggedIn(true);
+                }
+            } catch (error) {
+                setIsLoggedIn(false);
+            } finally {
+                setLoading(false);
+            }
+        };
+        checkAuth();
+    }, []);
 
     const toggleSignupChoice = () => {
         setIsSignupChoiceOpen(!isSignupChoiceOpen);
@@ -49,6 +67,10 @@ function Header() {
     const handleSignupSuccess = () => {
         setIsLoggedIn(true);
     };
+
+    if (loading) {
+        return <div>Loading...</div>; // Vous pouvez personnaliser cet indicateur de chargement
+    }
 
     if (isLoggedIn) {
         return <HeaderUser />;
@@ -102,6 +124,7 @@ function Header() {
 }
 
 export default Header;
+
 
 
 

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+// Configure Axios to send credentials
+axios.defaults.withCredentials = true;
 
 function HeaderUser() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch user data when component mounts
@@ -15,9 +20,12 @@ function HeaderUser() {
         try {
             const response = await axios.get('http://localhost:5000/api/user');
             setUser(response.data);
-            console(user);
         } catch (error) {
             console.error('Error fetching user data:', error);
+            if (error.response && error.response.status === 401) {
+                // Handle unauthenticated user (e.g., redirect to login page)
+                window.location.href = '/login';
+            }
         }
     };
 
@@ -35,12 +43,19 @@ function HeaderUser() {
         }
     };
 
+    const handleProfileClick = () => {
+        if (user && user.typeUser === 'vendor') {
+            navigate('/Dashboard');
+        }
+        // You can add else conditions here for other user types if needed
+    };
+
     return (
         <>
             <header className="h-20 sm:h-20 md:h-16 flex items-center z-30 w-full border-b-4 bg-white fixed top-0">
                 <div className="container mx-auto px-6 md:px-0 flex items-center justify-between">
                     <div>
-                        <img className="h-20 w-24 md:mt-2" src="../src/assets/logo2.png" alt="My Image" />
+                        <img className="h-20 w-24 md:mt-2" src="/src/assets/logo2.png" alt="My Image" />
                     </div>
                     <div className="flex items-center">
                         <nav className="font-sen text-gray-800 dark:text-white uppercase text-sm lg:flex items-center hidden">
@@ -73,7 +88,12 @@ function HeaderUser() {
                                 </button>
                             </div>
                             <div className="py-2 px-4 text-md mr-4">
-                                <img src={user && user.profilePhoto ? user.profilePhoto : "../src/assets/bliss.jpg"} alt="Profile" className="w-10 h-10 rounded-full border" />
+                                <img 
+                                    src={user && user.profilePhoto ? `../src/assets/${user.profilePhoto}` : "../src/assets/bliss.jpg"} 
+                                    alt="Profile" 
+                                    className="w-10 h-10 rounded-full border cursor-pointer"
+                                    onClick={handleProfileClick}
+                                />
                             </div>
                         </nav>
                         <button className="lg:hidden flex flex-col ml-4" onClick={toggleSidebar}>

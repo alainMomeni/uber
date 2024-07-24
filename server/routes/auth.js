@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const passport = require('passport');
 const fileUpload = require('../middleware/fileUpload');
+const path = require('path');
 
 const router = express.Router();
 
@@ -27,7 +28,7 @@ router.post('/signup', fileUpload, async (req, res, next) => {
     if (req.files) {
       const profilePhoto = req.files.find(file => file.fieldname === 'profilePhoto');
       if (profilePhoto) {
-        userData.profilePhoto = profilePhoto.path;
+        userData.profilePhoto = path.basename(profilePhoto.path);
       }
     }
 
