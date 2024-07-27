@@ -30,8 +30,7 @@ function App() {
         <Route path='/Dashboard' element= { <Dashboard/> } />
         <Route path='/Dashboard/Liste des produits' element= { <ListeProduitsDash/> } />
         <Route path='/Dashboard/Nouveau produit' element= { <NouveauProduit/> } />
-        <Route path='/Dashboard/Editer les produits' element= { <EditProduit/> } />
-        <Route path='/Dashboard/Editer les produits' element= { <EditProduit/> } />
+        <Route path='/Dashboard/Editer les produits/:id' element= { <EditProduit/> } />
         <Route path='/À propos de nous' element= { <About_us/> } />
         <Route path='/Profil du client' element= { <ProfilClient/> } />
         <Route path='/Modifier profil' element= { <UpdateProfilUser/> } />

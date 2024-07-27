@@ -1,7 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPencilAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function ProfilSection1() {
+
+    const [formData, setFormData] = useState({
+        typeUser: '',
+        profilePhoto: '',
+        restaurantPhoto: '',
+        firstName: '',
+        lastName: '',
+        restaurantName: '',
+        category: '',
+        city: '',
+        neighborhood: '',
+        openingTime: '',
+        closingTime: '',
+        phoneNumber: '',
+        email: '',
+        description: '',
+        password: '',
+      });
+
+    useEffect(() => {
+        fetchUserData();
+      }, []);
+
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/user', { withCredentials: true });
+          setFormData(response.data);
+          console.log(response.data)
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          console.log('Error fetching user data');
+        }
+      };
+
     return (
         <div>
             <div className=" mt-16">
@@ -12,20 +48,20 @@ function ProfilSection1() {
                             <div className="bg-white shadow-xl rounded-lg p-6 ">
                                 <div className="flex flex-col items-center">
                                     <img 
-                                        src="../src/assets/bliss.jpg" 
+                                        src={`../src/assets/${formData.profilePhoto}`}  
                                         className="w-32 h-32 rounded-full mb-4 border-2 border-gray-200"
                                         alt="Profile"
                                     />
-                                    <h1 className="text-2xl font-bold">Le Bliss</h1>
-                                    <p className="text-gray-600">Snack Bar</p>
+                                    <h1 className="text-2xl font-bold">{formData.restaurantName}</h1>
+                                    <p className="text-gray-600">{formData.category}</p>
                                     <div className="mt-4">
-                                        <a 
-                                            href="#" 
+                                        <Link 
+                                            to="/Dashboard" 
                                             className="bg-lime-500 hover:bg-lime-400 text-white py-2 px-4 rounded-lg transition duration-300 flex items-center"
                                         >
                                             <FaPencilAlt className="mr-2" />
                                             MANAGER
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -36,28 +72,20 @@ function ProfilSection1() {
                             <div className="bg-white shadow-xl rounded-lg p-6">
                                 <h2 className="text-2xl font-bold mb-4 text-lime-500">Description</h2>
                                 <p className="text-gray-700 leading-relaxed">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est
-                                    vitae tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
-                                    suscipit. Nunc finibus vel ante id euismod. Vestibulum ante ipsum primis in faucibus orci luctus
-                                    et ultrices posuere cubilia Curae; Aliquam erat volutpat. Nulla vulputate pharetra tellus, in
-                                    luctus risus rhoncus id.
+                                   {formData.description}
                                 </p>
 
                                 <div className="space-y-6">
                                     <div>
                                         <span className="block text-gray-700 font-bold">Lieu</span>
                                         <p className="mt-2 text-gray-700">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae
-                                            tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
-                                            suscipit.
+                                         {formData.city} / {formData.neighborhood}
                                         </p>
                                     </div>
                                     <div>
                                         <span className="block text-gray-700 font-bold">Heure d'ouverture</span>
                                         <p className="mt-2 text-gray-700">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus est vitae
-                                            tortor ullamcorper, ut vestibulum velit convallis. Aenean posuere risus non velit egestas
-                                            suscipit.
+                                        {formData.openingTime} / {formData.closingTime}
                                         </p>
                                     </div>
                                 </div>

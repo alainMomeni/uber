@@ -1,59 +1,59 @@
-import React, { useState, useMemo } from 'react';
-import { FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
-const productsData = [
-  {
-    image: "/docs/images/products/apple-watch.png",
-    name: "Apple Watch",
-    qty: 1,
-    price: "$599",
-  },
-  {
-    image: "/docs/images/products/imac.png",
-    name: "iMac 27\"",
-    qty: 1,
-    price: "$2499",
-  },
-  {
-    image: "/docs/images/products/iphone-12.png",
-    name: "iPhone 12",
-    qty: 1,
-    price: "$999",
-  },
-];
+import React, { useState, useEffect } from 'react';
+import { FaSearch, FaPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function ListeProduitsDashTable() {
+  const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 2;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const itemsPerPage = 10;
 
-  const filteredProducts = useMemo(() => {
-    return productsData.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm]);
+  useEffect(() => {
+    fetchProducts();
+  }, [currentPage, searchTerm]);
 
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/products', {
+        params: {
+          page: currentPage,
+          limit: itemsPerPage,
+          search: searchTerm
+        },
+        withCredentials: true
+      });
+      setProducts(response.data.products);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
   const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages - 1));
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
-  const currentItems = filteredProducts.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
+  const handleDelete = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/products/${productId}`, { withCredentials: true });
+      fetchProducts();
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
 
   return (
-    <div className="p-4" >
-      <div className="relative mb-4">
+    <div className="p-4">
+      <div className="relative mb-4 md:flex">
         <input
           type="text"
-          className="block focus:outline-none  p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-lime-500 focus:border-lime-500 transition duration-300"
+          className="block focus:outline-none p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-lime-500 focus:border-lime-500 transition duration-300"
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -61,6 +61,9 @@ function ListeProduitsDashTable() {
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <FaSearch className="w-5 h-5 text-lime-500" />
         </div>
+        <Link to="/Dashboard/Nouveau produit" className="ml-2 p-3 bg-lime-500 text-white rounded-lg hover:bg-lime-400 transition duration-300 flex items-center">
+          <FaPlus className="w-5 h-5" />
+        </Link>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -77,14 +80,14 @@ function ListeProduitsDashTable() {
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((product, index) => (
+            {products.map((product) => (
               <tr
-                key={index}
+                key={product._id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td className="p-4">
                   <img
-                    src={product.image}
+                    src={`http://localhost:5000/assets/${product.photo}`}
                     className="w-16 md:w-32 max-w-full max-h-full rounded-lg"
                     alt={product.name}
                   />
@@ -93,20 +96,23 @@ function ListeProduitsDashTable() {
                   {product.name}
                 </td>
                 <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                  {product.qty}
+                  {product.Quantity}
                 </td>
                 <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                  {product.price}
+                  ${product.price}
                 </td>
                 <td className="px-6 py-4">
-                  <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                  <Link to={`/Dashboard/Editer les produits/${product._id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                     Edit
-                  </a>
+                  </Link>
                 </td>
                 <td className="px-6 py-4">
-                  <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">
+                  <button
+                    onClick={() => handleDelete(product._id)}
+                    className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                  >
                     Remove
-                  </a>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -117,18 +123,22 @@ function ListeProduitsDashTable() {
         <div className="flex flex-1 max-w-lg px-4 py-3 mt-8 border shadow-md sm:px-6 ">
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div className="relative z-0 flex justify-between w-full -space-x-px rounded-md" aria-label="Pagination">
-              <button type="button" className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300" >
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" className="w-5 h-5" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                </svg>
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentPage === 1}
+                className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300"
+              >
                 Previous Page
               </button>
-              <span className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">Page 1/1</span>
-              <button type="button" className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300">
+              <span className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">
+                Page {currentPage}/{totalPages}
+              </span>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300"
+              >
                 Next Page
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" className="w-5 h-5" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
-                </svg>
               </button>
             </div>
           </div>

@@ -37,6 +37,10 @@ const VendorForm = ({ fieldErrors }) => {
         <input type="tel" name="phoneNumber" className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-lime-500 focus:border-lime-500 transition duration-300" />
       </div>
       <div className="mb-4">
+        <label className="block text-gray-700">Description</label>
+        <textarea name="description" className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-lime-500 focus:border-lime-500 transition duration-300"></textarea>
+      </div>
+      <div className="mb-4">
         <label className="block text-gray-700">Adresse e-mail</label>
         <input type="email" name="email" className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-lime-500 focus:border-lime-500 transition duration-300" />
         {fieldErrors.email && <p className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>}
@@ -55,6 +59,7 @@ const VendorForm = ({ fieldErrors }) => {
 };
 
 export default VendorForm;
+
 
 
 

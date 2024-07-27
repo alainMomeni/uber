@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/product');
 const session = require('express-session');
 const passport = require('passport');
 require('./config/passportConfig');
@@ -15,8 +16,8 @@ app.use(cors({
   origin: 'http://localhost:5173', // Your frontend URL
   credentials: true
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve static files from the assets directory
@@ -41,6 +42,7 @@ connectDB();
 
 // Routes
 app.use('/api', authRoutes);
+app.use('/api', productRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

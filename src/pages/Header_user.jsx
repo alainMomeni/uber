@@ -45,7 +45,10 @@ function HeaderUser() {
 
     const handleProfileClick = () => {
         if (user && user.typeUser === 'vendor') {
-            navigate('/Dashboard');
+            navigate('/Profil du client');
+        }
+        if (user && user.typeUser === 'client') {
+            navigate('/Profil');
         }
         // You can add else conditions here for other user types if needed
     };

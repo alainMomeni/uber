@@ -32,5 +32,5 @@ passport.deserializeUser(async (id, done) => {
   } catch (err) {
     done(err, null);
   }
-});
+}); 
 
