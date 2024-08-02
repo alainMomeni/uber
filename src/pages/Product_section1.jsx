@@ -1,7 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { FaShoppingCart, FaTimes } from 'react-icons/fa';
 
 function ProductSection1() {
+  const [formData, setFormData] = useState({
+    photo: '',
+    name: '',
+    price: '',
+    Quantity: '',
+    description: ''
+  });
+
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchProductData();
+  }, [id]);
+
+  const fetchProductData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/products/${id}`, { withCredentials: true });
+      const product = response.data;
+      setFormData({
+        photo: `http://localhost:5000/assets/${product.photo}`,
+        name: product.name,
+        price: product.price,
+        Quantity: product.Quantity,
+        description: product.description
+      });
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+      setError('Failed to load product data. Please try again.');
+    }
+  };
+
   return (
     <div className="dark:bg-gray-800 py-8 mt-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +46,7 @@ function ProductSection1() {
             <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
               <img
                 className="w-full h-full object-cover rounded-lg"
-                src="../src/assets/poisson.jpg"
+                src={formData.photo}
                 alt="Product Image"
               />
             </div>
@@ -30,14 +66,14 @@ function ProductSection1() {
             </div>
           </div>
           <div className="md:flex-1 px-4">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Poisson braisé</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">{formData.name}</h2>
             <p className="text-gray-600 dark:text-gray-300 text-base mb-6">
-              Un délicieux plat de poisson braisé maquereaux ou carpe servie avec du piment et des condiments. Avec en accompagnement selon vos goûts du bâton ou des frites pomme ou plantain.
+              {formData.description}
             </p>
             <div className="flex mb-6">
               <div className="mr-6">
                 <span className="font-bold text-gray-700 dark:text-gray-300">Prix:</span>
-                <span className="text-gray-600 dark:text-gray-300 ml-2">2000 franc</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-2">{formData.price} franc</span>
               </div>
               <div>
                 <span className="font-bold text-gray-700 dark:text-gray-300">Disponibilité:</span>
