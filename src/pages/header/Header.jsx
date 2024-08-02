@@ -2,20 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import SignupChoiceForm from './SignupChoiceForm';
 import Sidebar from './Sidebar';
-import SearchBar from './SearchBar';
 import SignupForm from './SignupForm/SignupForm';
 import LoginForm from './LoginForm';
 import HeaderUser from '../Header_user';
 import axios from 'axios'; // Import axios
+import { Link, useLocation } from 'react-router-dom';
+import SearchBar from './SearchBar'; // Assurez-vous que SearchBar est importé
 
-function Header() {
+function Header({ onSearch }) {
     const [isSignupChoiceOpen, setIsSignupChoiceOpen] = useState(false);
     const [isSignupFormOpen, setIsSignupFormOpen] = useState(false);
     const [signupType, setSignupType] = useState(null);
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [loading, setLoading] = useState(true); // Pour gérer l'état de chargement
+    const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const location = useLocation();
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -68,8 +72,12 @@ function Header() {
         setIsLoggedIn(true);
     };
 
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+    };
+
     if (loading) {
-        return <div>Loading...</div>; // Vous pouvez personnaliser cet indicateur de chargement
+        return <div>Loading...</div>;
     }
 
     if (isLoggedIn) {
@@ -85,7 +93,12 @@ function Header() {
                     </div>
                     <div className="flex items-center">
                         <nav className="font-sen text-gray-800 dark:text-white uppercase text-sm lg:flex items-center hidden">
-                            <SearchBar />
+                            {location.pathname === '/Liste%20des%20produits' && <SearchBar onSearch={onSearch} />}
+                            <Link to="/Liste%20des%20produits" className="pr-4 pl-2">
+                                <div className="font-bebas-neue uppercase py-2 hover:text-lime-600 transition duration-300">
+                                    Produits
+                                </div>
+                            </Link>
                             <div className="pr-4 pl-2">
                                 <a href="#" className="font-bebas-neue uppercase py-2 hover:text-lime-600 transition duration-300">
                                     Devenir partenaire
@@ -124,6 +137,7 @@ function Header() {
 }
 
 export default Header;
+
 
 
 

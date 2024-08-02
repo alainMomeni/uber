@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import SearchBar from './header/SearchBar';
 
 // Configure Axios to send credentials
 axios.defaults.withCredentials = true;
@@ -10,6 +11,7 @@ function HeaderUser() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation(); // Ajoutez useLocation pour vérifier le chemin d'accès
 
     useEffect(() => {
         // Fetch user data when component mounts
@@ -62,18 +64,7 @@ function HeaderUser() {
                     </div>
                     <div className="flex items-center">
                         <nav className="font-sen text-gray-800 dark:text-white uppercase text-sm lg:flex items-center hidden">
-                            <div className="pr-4">
-                                <form className="max-w-md mx-auto">
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                            <svg className="w-4 h-4 text-lime-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                            </svg>
-                                        </div>
-                                        <input type="search" id="default-search" className="ps-10 text-sm text-gray-900 border border-gray-300 focus:outline-none rounded-lg bg-gray-50 focus:ring-lime-500 focus:border-lime-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500 md:py-2.5 md:pr-2" placeholder="Entrez un plat…" required />
-                                    </div>
-                                </form>
-                            </div>
+                            {location.pathname === '/Liste%20des%20produits' && <SearchBar />} {/* Afficher SearchBar uniquement sur la page Liste des produits */}
                             <div className="pr-8 py-2 px-4 mt-2">
                                 <div className="relative">
                                     <FaShoppingCart className="text-2xl" />
@@ -81,6 +72,16 @@ function HeaderUser() {
                                         3 {/* Nombre de produits dans le panier */}
                                     </span>
                                 </div>
+                            </div>
+                            <Link to="/Liste des produits" className="pr-4 pl-2">
+                                <div className="font-bebas-neue uppercase py-2 hover:text-lime-600 transition duration-300">
+                                    Produits
+                                </div>
+                            </Link>
+                            <div className="pr-4 pl-2">
+                                <a href="#" className="font-bebas-neue uppercase py-2 hover:text-lime-600 transition duration-300">
+                                    Devenir partenaire
+                                </a>
                             </div>
                             <div className="">
                                 <button

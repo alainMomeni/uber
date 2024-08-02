@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function ProductCard({ image, location, name, price }) {
   return (
@@ -23,44 +24,73 @@ function ProductCard({ image, location, name, price }) {
   );
 }
 
-function ListProductSection2() {
-  const products = [
-    { image: "../src/assets/poisson.jpg", location: "Yaounde", name: "Poisson braisé", price: "2000" },
-    { image: "../src/assets/poulet.jpg", location: "Douala", name: "Poulet braisé", price: "2000" },
-    { image: "../src/assets/okok.jpg", location: "Yaounde", name: "Okok", price: "2000" },
-    { image: "../src/assets/grenadine.png", location: "Yaounde", name: "Top grenadine", price: "500" },
-    { image: "../src/assets/eru.png", location: "Yaounde", name: "Eru", price: "2000" },
-    { image: "../src/assets/djino.jpg", location: "Douala", name: "Djino cocktail", price: "500" },
-    { image: "../src/assets/ndole.jpg", location: "Yaounde", name: "Ndolé", price: "2000" },
-    { image: "../src/assets/koki.jpg", location: "Yaounde", name: "Koki", price: "2000" },
-  ];
+function ListProductSection2({ searchQuery }) {
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [currentPage, searchQuery]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/products?page=${currentPage}&search=${searchQuery}`);
+      setProducts(response.data.products);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   return (
     <div>
-            <div className="text-gray-800 text-3xl mt-16 font-black p-8">
-                <h1>  Liste des produits poulet ... </h1>
-            </div>
+      <div className="text-gray-800 text-3xl mt-16 font-black p-8">
+        <h1>Liste des produits</h1>
+      </div>
       <section id="Projects" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-10 mt-2 mb-5">
-        {products.map((product, index) => (
-          <ProductCard key={index} {...product} />
+        {products.map((product) => (
+          <ProductCard 
+            key={product._id}
+            image={`http://localhost:5000/assets/${product.photo}`}
+            location={product.location || 'N/A'}
+            name={product.name}
+            price={product.price}
+          />
         ))}
       </section>
       <div className="flex items-center justify-center w-screen mb-12">
         <div className="flex flex-1 max-w-lg px-4 py-3 mt-8 border shadow-md sm:px-6 ">
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div className="relative z-0 flex justify-between w-full -space-x-px rounded-md" aria-label="Pagination">
-              <button type="button" className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300" >
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" className="w-5 h-5" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path>
-                </svg>
+              <button 
+                onClick={handlePreviousPage} 
+                disabled={currentPage === 1}
+                className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300"
+              >
                 Previous Page
               </button>
-              <span className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">Page 1/1</span>
-              <button type="button" className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300">
+              <span className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md">
+                Page {currentPage}/{totalPages}
+              </span>
+              <button 
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-lime-500 hover:text-white sm:rounded-r-md transition duration-300"
+              >
                 Next Page
-                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 20 20" className="w-5 h-5" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
-                </svg>
               </button>
             </div>
           </div>
