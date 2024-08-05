@@ -1,31 +1,36 @@
+// HeaderUser.jsx
 import React, { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import SearchBar from './header/SearchBar';
+import { useCart } from '../CartContext';
 
-// Configure Axios to send credentials
 axios.defaults.withCredentials = true;
 
 function HeaderUser() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
-    const location = useLocation(); // Ajoutez useLocation pour vérifier le chemin d'accès
+    const location = useLocation();
+    const { cartCount } = useCart();
 
     useEffect(() => {
-        // Fetch user data when component mounts
         fetchUserData();
     }, []);
 
+    // In the fetchUserData function
     const fetchUserData = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/user');
             setUser(response.data);
+
+            // Fetch cart count
+            const cartResponse = await axios.get('http://localhost:5000/api/cart/count');
+            setCartCount(cartResponse.data.count);
         } catch (error) {
             console.error('Error fetching user data:', error);
             if (error.response && error.response.status === 401) {
-                // Handle unauthenticated user (e.g., redirect to login page)
                 window.location.href = '/login';
             }
         }
@@ -38,7 +43,6 @@ function HeaderUser() {
     const handleLogout = async () => {
         try {
             await axios.post('http://localhost:5000/api/logout');
-            // Redirect to login page or update app state
             window.location.href = '/';
         } catch (error) {
             console.error('Error logging out:', error);
@@ -52,7 +56,6 @@ function HeaderUser() {
         if (user && user.typeUser === 'client') {
             navigate('/Profil');
         }
-        // You can add else conditions here for other user types if needed
     };
 
     return (
@@ -64,14 +67,14 @@ function HeaderUser() {
                     </div>
                     <div className="flex items-center">
                         <nav className="font-sen text-gray-800 dark:text-white uppercase text-sm lg:flex items-center hidden">
-                            {location.pathname === '/Liste%20des%20produits' && <SearchBar />} {/* Afficher SearchBar uniquement sur la page Liste des produits */}
+                            {location.pathname === '/Liste%20des%20produits' && <SearchBar />}
                             <div className="pr-8 py-2 px-4 mt-2">
-                                <div className="relative">
+                                <Link to="/Commande" className="relative">
                                     <FaShoppingCart className="text-2xl" />
                                     <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full px-2 py-1">
-                                        3 {/* Nombre de produits dans le panier */}
+                                        {cartCount}
                                     </span>
-                                </div>
+                                </Link>
                             </div>
                             <Link to="/Liste des produits" className="pr-4 pl-2">
                                 <div className="font-bebas-neue uppercase py-2 hover:text-lime-600 transition duration-300">
@@ -92,9 +95,9 @@ function HeaderUser() {
                                 </button>
                             </div>
                             <div className="py-2 px-4 text-md mr-4">
-                                <img 
-                                    src={user && user.profilePhoto ? `../src/assets/${user.profilePhoto}` : "../src/assets/bliss.jpg"} 
-                                    alt="Profile" 
+                                <img
+                                    src={user && user.profilePhoto ? `../src/assets/${user.profilePhoto}` : "../src/assets/bliss.jpg"}
+                                    alt="Profile"
                                     className="w-10 h-10 rounded-full border cursor-pointer"
                                     onClick={handleProfileClick}
                                 />
@@ -119,16 +122,16 @@ function HeaderUser() {
                                 <a href="#home" className="block text-gray-800 hover:bg-gray-200 px-3 py-2 rounded">Profil</a>
                             </li>
                             <a href="" className="hover:bg-gray-200 rounded block">
-                            <li className='flex'>
-                                <h1 className="text-gray-800 px-3 py-2">Panier
-                                </h1>
-                                <div className="relative my-auto">
-                                    <FaShoppingCart className="text-2xl"/>
-                                    <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full px-2 py-1">
-                                        3 {/* Nombre de produits dans le panier */}
-                                    </span>
-                                </div>
-                            </li>
+                                <li className='flex'>
+                                    <h1 className="text-gray-800 px-3 py-2">Panier
+                                    </h1>
+                                    <div className="relative my-auto">
+                                        <FaShoppingCart className="text-2xl" />
+                                        <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full px-2 py-1">
+                                            {cartCount}
+                                        </span>
+                                    </div>
+                                </li>
                             </a>
                         </ul>
                     </nav>

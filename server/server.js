@@ -4,6 +4,7 @@ const path = require('path');
 const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/product');
+const orderRoutes = require('./routes/order');
 const session = require('express-session');
 const passport = require('passport');
 require('./config/passportConfig');
@@ -43,6 +44,7 @@ connectDB();
 // Routes
 app.use('/api', authRoutes);
 app.use('/api', productRoutes);
+app.use('/api', orderRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
